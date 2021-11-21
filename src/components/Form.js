@@ -14,8 +14,7 @@ class Form extends React.Component {
       currency: 'USD',
       method: 'Dinheiro',
       tag: 'Alimentação',
-      // allCurrencies: [],
-      teste: [],
+      allCurrencies: [],
       methodsArr: ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'],
       tagsArr: ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'],
 
@@ -36,7 +35,7 @@ class Form extends React.Component {
     try {
       const currenciesObj = await fetchApi();
       const currenciesArr = Object.keys(currenciesObj);
-      this.setState({ teste: currenciesArr });
+      this.setState({ allCurrencies: currenciesArr });
       sendCurrencies(currenciesArr);
     } catch (error) {
       console.log(error.message);
@@ -50,21 +49,7 @@ class Form extends React.Component {
     ));
   }
 
-  // filterCurrencies() {
-  //   const { teste } = this.state;
-  //   const allCurrencies = teste.filter((currencie) => {
-  //     if (currencie !== 'USDT') {
-  //       return currencie;
-  //     }
-  //     return false;
-  //   });
-  //   this.setState({
-  //     allCurrencies,
-  //   });
-  // }
-
   generateOptionCurrencies(currencies) {
-    // if (!currencies) return [];
     return currencies.map((currencie, index) => {
       if (currencie !== 'USDT') {
         return (
@@ -74,7 +59,6 @@ class Form extends React.Component {
             value={ currencie }
           >
             { currencie }
-
           </option>
         );
       } return false;
@@ -86,7 +70,15 @@ class Form extends React.Component {
     const { sendExpenses, storeExpense } = this.props;
     try {
       const exchangeRates = await fetchApi();
-      const { value, description, currency, method, tag, tagsArr } = this.state;
+      const {
+        value,
+        description,
+        currency,
+        method,
+        tag,
+        tagsArr,
+        methodsArr,
+      } = this.state;
       const expenses = {
         id: storeExpense.length,
         value,
@@ -102,7 +94,7 @@ class Form extends React.Component {
         value: 0,
         description: '',
         currency: 'USD',
-        method: 'Dinheiro',
+        method: methodsArr[0],
         tag: tagsArr[0],
       });
     } catch (error) {
@@ -141,10 +133,8 @@ class Form extends React.Component {
   }
 
   render() {
-    const { currency, method, tag, methodsArr, tagsArr, teste } = this.state;
-    // console.log(allCurrencies);
-    // const { storeCurrencies } = this.props;
-    // const arrCurrencies = storeCurrencies[0];
+    const { currency, method, tag, methodsArr, tagsArr, allCurrencies } = this.state;
+
     return (
       <form onSubmit={ this.saveExpenses }>
         {
@@ -159,7 +149,7 @@ class Form extends React.Component {
             value={ currency }
             onChange={ this.handleChange }
           >
-            {this.generateOptionCurrencies(teste)}
+            {this.generateOptionCurrencies(allCurrencies)}
           </select>
         </label>
         <select
@@ -193,7 +183,6 @@ Form.propTypes = {
 
 const mapStateToProps = (state) => ({
   storeExpense: state.wallet.expenses,
-  // storeCurrencies: state.wallet.currencies,
 });
 
 const mapToDispatchToProps = (dispatch) => ({

@@ -3,15 +3,17 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 class Header extends React.Component {
+  sumTotalValue(expenses) {
+    let totalValue = 0;
+    expenses.forEach(({ currency, value, exchangeRates }) => {
+      totalValue += value * exchangeRates[currency].ask;
+    });
+    return totalValue;
+  }
+
   render() {
     const { email, expenses } = this.props;
-
-    let totalValue = 0;
-
-    expenses.forEach((expense) => {
-      const coin = expense.currency;
-      totalValue += expense.value * expense.exchangeRates[coin].ask;
-    });
+    const totalValue = this.sumTotalValue(expenses);
 
     return (
       <div>
@@ -25,9 +27,7 @@ class Header extends React.Component {
 
 Header.propTypes = {
   email: PropTypes.string.isRequired,
-  expenses: PropTypes.shape({
-    forEach: PropTypes.func,
-  }).isRequired,
+  expenses: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 const mapStateToProps = (state) => ({
