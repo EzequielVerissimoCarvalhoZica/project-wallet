@@ -14,6 +14,7 @@ class Form extends React.Component {
       currency: 'USD',
       method: 'Dinheiro',
       tag: 'Alimentação',
+      // allCurrencies: [],
       teste: [],
       methodsArr: ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'],
       tagsArr: ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'],
@@ -49,18 +50,35 @@ class Form extends React.Component {
     ));
   }
 
+  // filterCurrencies() {
+  //   const { teste } = this.state;
+  //   const allCurrencies = teste.filter((currencie) => {
+  //     if (currencie !== 'USDT') {
+  //       return currencie;
+  //     }
+  //     return false;
+  //   });
+  //   this.setState({
+  //     allCurrencies,
+  //   });
+  // }
+
   generateOptionCurrencies(currencies) {
     // if (!currencies) return [];
-    return currencies.map((currencie, index) => (
-      <option
-        data-testid={ currencie }
-        key={ index }
-        value={ currencie }
-      >
-        { currencie }
+    return currencies.map((currencie, index) => {
+      if (currencie !== 'USDT') {
+        return (
+          <option
+            data-testid={ currencie }
+            key={ index }
+            value={ currencie }
+          >
+            { currencie }
 
-      </option>
-    ));
+          </option>
+        );
+      } return false;
+    });
   }
 
   async saveExpenses(event) {
@@ -124,6 +142,7 @@ class Form extends React.Component {
 
   render() {
     const { currency, method, tag, methodsArr, tagsArr, teste } = this.state;
+    // console.log(allCurrencies);
     // const { storeCurrencies } = this.props;
     // const arrCurrencies = storeCurrencies[0];
     return (
@@ -131,17 +150,18 @@ class Form extends React.Component {
         {
           this.returnForm()
         }
-        {/* <label htmlFor="currency">
-          Moeda: */}
-        <select
-          data-testid="currency-input"
-          name="currency"
-          value={ currency }
-          onChange={ this.handleChange }
-        >
-          {this.generateOptionCurrencies(teste)}
-        </select>
-        {/* </label> */}
+        <label htmlFor="currency">
+          Moeda:
+          <select
+            data-testid="currency-input"
+            name="currency"
+            id="currency"
+            value={ currency }
+            onChange={ this.handleChange }
+          >
+            {this.generateOptionCurrencies(teste)}
+          </select>
+        </label>
         <select
           data-testid="method-input"
           name="method"
