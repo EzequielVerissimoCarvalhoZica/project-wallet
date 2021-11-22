@@ -34,9 +34,9 @@ class Login extends React.Component {
     const { email } = this.state;
 
     const splitEmail = email.split('@');
+    const splitEmail2 = splitEmail[1].split('.');
 
     if (splitEmail.length === 2) {
-      const splitEmail2 = splitEmail[1].split('.');
       if (splitEmail2.length === 2 && splitEmail2[1].length > 0) {
         this.setState({ validEmail: true }, () => { this.validButton(); });
       } else {
@@ -47,9 +47,9 @@ class Login extends React.Component {
     }
 
     const { password } = this.state;
-    const passwordSize = 5;
+    const minPasswordSize = 5;
 
-    if (password.length > passwordSize) {
+    if (password.length > minPasswordSize) {
       this.setState({
         validPassword: true,
       }, () => { this.validButton(); });
