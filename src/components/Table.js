@@ -1,8 +1,25 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
+import { updateExpenses } from '../actions';
 
 class Table extends React.Component {
+  constructor() {
+    super();
+
+    this.removeExpenseButton = this.removeExpenseButton.bind(this);
+    this.createTableExpenses = this.createTableExpenses.bind(this);
+  }
+
+  removeExpenseButton({ target }) {
+    const { expenses, reloadExpenses } = this.props;
+
+    const newExpenses = expenses
+      .filter((expense) => Number(target.id) !== Number(expense.id));
+
+    reloadExpenses(newExpenses);
+  }
+
   createTableExpenses() {
     const { expenses } = this.props;
 
@@ -12,6 +29,7 @@ class Table extends React.Component {
         const numberPrecisionAt = 3;
         const exchange = parseFloat(exchangeRates[currency].ask)
           .toPrecision(numberPrecisionAt);
+
         return (
           <tr key={ id }>
             <td>{description}</td>
@@ -22,7 +40,17 @@ class Table extends React.Component {
             <td>{exchange}</td>
             <td>{value * exchangeRates[currency].ask}</td>
             <td>Real</td>
-            <td>Buttons</td>
+            <td>
+              <button
+                data-testid="delete-btn"
+                type="button"
+                id={ id }
+                onClick={ this.removeExpenseButton }
+              >
+                Remover
+
+              </button>
+            </td>
           </tr>
         );
       });
@@ -55,12 +83,19 @@ class Table extends React.Component {
 }
 
 Table.propTypes = {
-  expenses: PropTypes.shape({
+  expenses: PropTypes.arrayOf({
+    filter: PropTypes.func,
     map: PropTypes.func.isRequired,
   }).isRequired,
+  reloadExpenses: PropTypes.func.isRequired,
 };
+
+const mapToDispatchToProps = (dispatch) => ({
+  reloadExpenses: (expense) => dispatch(updateExpenses(expense)),
+});
+
 const mapStateToProps = (state) => ({
   expenses: state.wallet.expenses,
 });
 
-export default connect(mapStateToProps)(Table);
+export default connect(mapStateToProps, mapToDispatchToProps)(Table);
