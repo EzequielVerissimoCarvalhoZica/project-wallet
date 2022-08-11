@@ -1,4 +1,4 @@
-# Boas vindas ao repositório do projeto Trybe Wallet!
+# Boas vindas ao repositório do projeto Wallet!
 
 # Habilidades
 Neste projeto, fui capaz de:
