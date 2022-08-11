@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import './Form.css';
 import { connect } from 'react-redux';
 import { addExpenses, addCurrencies } from '../actions';
 import fetchApi from '../services/fetchApi';
@@ -9,7 +10,7 @@ class Form extends React.Component {
     super();
 
     this.state = {
-      value: 0,
+      value: '',
       description: '',
       currency: 'USD',
       method: 'Dinheiro',
@@ -91,7 +92,7 @@ class Form extends React.Component {
       sendExpenses(expenses);
 
       this.setState({
-        value: 0,
+        value: '',
         description: '',
         currency: 'USD',
         method: methodsArr[0],
@@ -113,20 +114,26 @@ class Form extends React.Component {
 
     return (
       <>
-        <input
-          data-testid="value-input"
-          type="number"
-          name="value"
-          value={ value }
-          onChange={ this.handleChange }
-        />
-        <input
-          data-testid="description-input"
-          type="text"
-          name="description"
-          value={ description }
-          onChange={ this.handleChange }
-        />
+        <label htmlFor="value">
+          Valor:
+          <input
+            data-testid="value-input"
+            type="number"
+            name="value"
+            value={ value }
+            onChange={ this.handleChange }
+          />
+        </label>
+        <label htmlFor="description">
+          Descrição:
+          <input
+            data-testid="description-input"
+            type="text"
+            name="description"
+            value={ description }
+            onChange={ this.handleChange }
+          />
+        </label>
 
       </>
     );
@@ -136,7 +143,7 @@ class Form extends React.Component {
     const { currency, method, tag, methodsArr, tagsArr, allCurrencies } = this.state;
 
     return (
-      <form onSubmit={ this.saveExpenses }>
+      <form className="container-form" onSubmit={ this.saveExpenses }>
         {
           this.returnForm()
         }
@@ -152,24 +159,29 @@ class Form extends React.Component {
             {this.generateOptionCurrencies(allCurrencies)}
           </select>
         </label>
-        <select
-          data-testid="method-input"
-          name="method"
-          value={ method }
-          onChange={ this.handleChange }
-        >
-          {this.generateOptionEl(methodsArr)}
-        </select>
-        Tag
-        <select
-          data-testid="tag-input"
-          name="tag"
-          value={ tag }
-          onChange={ this.handleChange }
-        >
-          {this.generateOptionEl(tagsArr)}
-        </select>
-        <button type="submit">Adicionar despesa</button>
+        <label htmlFor="method">
+          Método de pagamento:
+          <select
+            data-testid="method-input"
+            name="method"
+            value={ method }
+            onChange={ this.handleChange }
+          >
+            {this.generateOptionEl(methodsArr)}
+          </select>
+        </label>
+        <label htmlFor="tag">
+          Tag:
+          <select
+            data-testid="tag-input"
+            name="tag"
+            value={ tag }
+            onChange={ this.handleChange }
+          >
+            {this.generateOptionEl(tagsArr)}
+          </select>
+        </label>
+        <button className="button-form" type="submit">Adicionar despesa</button>
       </form>
     );
   }

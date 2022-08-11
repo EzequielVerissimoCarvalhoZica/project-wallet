@@ -1,0 +1,24 @@
+.container-header {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 13px;
+  padding-bottom: 13px;
+  padding-left: 20px;
+  background-color: #fafaf6;
+}
+
+.container-img {
+  display: flex;
+}
+
+.img-header {
+  width: 120px;
+}
+
+.container-user {
+  width: 300px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-right: 20px;
+}

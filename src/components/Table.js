@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import './Table.css';
 import { connect } from 'react-redux';
 import { updateExpenses } from '../actions';
 
@@ -26,22 +27,23 @@ class Table extends React.Component {
     return expenses
       .map(({ id, value, description, currency, method, tag, exchangeRates }) => {
         const coin = exchangeRates[currency].name.split('/');
-        const numberPrecisionAt = 3;
+        const numberPrecisionAt = 2;
         const exchange = parseFloat(exchangeRates[currency].ask)
           .toPrecision(numberPrecisionAt);
-
+        const price = (value * exchangeRates[currency].ask).toFixed(2);
         return (
           <tr key={ id }>
-            <td>{description}</td>
-            <td>{tag}</td>
-            <td>{method}</td>
-            <td>{value}</td>
-            <td>{coin[0]}</td>
-            <td>{exchange}</td>
-            <td>{value * exchangeRates[currency].ask}</td>
-            <td>Real</td>
-            <td>
+            <td className="desc">{description}</td>
+            <td className="tag">{tag}</td>
+            <td className="meth">{method}</td>
+            <td className="value">{`R$${value}`}</td>
+            <td className="coin">{coin[0]}</td>
+            <td className="exchange">{`R$${exchange}`}</td>
+            <td className="converge">{`R$${price}`}</td>
+            <td className="real">Real</td>
+            <td className="button">
               <button
+                className="button-delete"
                 data-testid="delete-btn"
                 type="button"
                 id={ id }
@@ -69,7 +71,7 @@ class Table extends React.Component {
             <th>Câmbio utilizado</th>
             <th>Valor convertido</th>
             <th>Moeda de conversão</th>
-            <th>Editar/Excluir</th>
+            <th>Excluir</th>
           </tr>
         </thead>
         <tbody>

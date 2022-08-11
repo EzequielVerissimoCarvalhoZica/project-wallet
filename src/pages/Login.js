@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import './Login.css';
 import { connect } from 'react-redux';
 import { userAction } from '../actions';
 
@@ -77,23 +78,43 @@ class Login extends React.Component {
     const { email, password, disabled } = this.state;
 
     return (
-      <form onSubmit={ this.submitButton }>
-        <input
-          data-testid="email-input"
-          type="email"
-          name="email"
-          value={ email }
-          onChange={ this.handleChange }
-        />
-        <input
-          data-testid="password-input"
-          type="password"
-          name="password"
-          value={ password }
-          onChange={ this.handleChange }
-        />
-        <button type="submit" disabled={ disabled }>Entrar</button>
-      </form>
+      <div className="main-container-login">
+        <div className="container-login">
+          <div className="container-img">
+            <img
+              className="image-login"
+              src="/assets/login_personal_finance.svg"
+              alt="personal finance"
+            />
+          </div>
+          <form className="form-login" onSubmit={ this.submitButton }>
+            <input
+              className="input-login"
+              data-testid="email-input"
+              type="email"
+              name="email"
+              value={ email }
+              onChange={ this.handleChange }
+            />
+            <input
+              className="input-login"
+              data-testid="password-input"
+              type="password"
+              name="password"
+              value={ password }
+              onChange={ this.handleChange }
+            />
+            <button
+              className="button-login"
+              type="submit"
+              disabled={ disabled }
+            >
+              Entrar
+
+            </button>
+          </form>
+        </div>
+      </div>
     );
   }
 }

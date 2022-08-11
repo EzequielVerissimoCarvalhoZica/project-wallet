@@ -1,0 +1,25 @@
+.container-form {
+  display: flex;
+  justify-content: space-evenly ;
+  background-color: #2d2d2d;
+  color: #e0e0e0;
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
+.button-form {
+
+  background-color: #74f813;
+  color: #2d2d2d;
+  width: 150px;
+  height: 30px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.button-form:hover {
+  background-color: #65e00c;
+  -webkit-box-shadow: 3px 1px 10px 5px #3b3a3a;
+-moz-box-shadow: 3px 1px 10px 5px #413e3e;
+box-shadow: 3px 1px 10px 5px #444242;
+}

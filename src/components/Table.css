@@ -1,0 +1,91 @@
+table {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+}
+
+thead {
+  flex-grow: 1;
+  background-color: #383838;
+  color: #f0efef;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-right: 10px;
+  padding-left: 10px;
+}
+thead tr {
+  display: flex;
+  justify-content: space-between;
+  text-align: center;
+}
+
+tbody {
+  flex-grow: 1;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  width: 100%;
+}
+
+tbody tr {
+  display: flex;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.desc {
+  width: 7%;
+}
+
+.tag {
+  width: 10%;
+}
+
+.meth {
+  width: 10%;
+}
+
+.value {
+  width: 5%;
+  margin-left: 90px;
+}
+
+.coin {
+  width: 10%;
+}
+
+.exchange {
+  width: 10%;
+}
+
+.converge {
+  width: 10%;
+  margin-left: 50px;
+}
+
+.real {
+  width: 10%;
+  margin-left: 65px;
+}
+
+.button {
+  width: 10%;
+  margin-left: 60px;
+}
+
+.button-delete {
+  border: none;
+  cursor: pointer;
+  background-color: rgb(255, 41, 4);
+  color: whitesmoke;
+  padding: 2px;
+  border-radius: 4px;
+}
+
+.button-delete:hover {
+  background-color: rgb(223, 39, 6);
+}
+
+.button-delete:focus {
+  background-color: rgb(168, 0, 0);
+
+}
